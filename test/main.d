@@ -12,7 +12,7 @@ void main()
 	SDL_VideoInit(null);
 	scope(exit) SDL_VideoQuit();
 
-	auto osn = OpenSimplexNoise!float(OpenSimplexNoise!float.PERM_DEFAULT[]);
+	auto osn = new OpenSimplexNoise!float;
 
 	enum WIDTH = 512;
 	enum HEIGHT = WIDTH;
@@ -28,7 +28,7 @@ void main()
 		for (size_t iy = 0; iy < HEIGHT; iy++)
 		{
 			size_t yy = xx + (iy * DEPTH);
-			ubyte v = cast(ubyte) ((osn.eval((cast(float) ix) * step, (cast(float) iy) * step, 20) + 1) * (ubyte.max / 2));
+			ubyte v = cast(ubyte) ((osn.eval((cast(float) ix) * step, (cast(float) iy) * step) + 1) * (ubyte.max / 2));
 			outputBuffer[yy    ] = v;
 			outputBuffer[yy + 1] = v;
 			outputBuffer[yy + 2] = v;
